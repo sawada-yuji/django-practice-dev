@@ -1,0 +1,11 @@
+起動
+docker compose up --detach --build
+* --build : イメージのビルドも行う
+
+停止
+docker compose down [--rmi all] [--volumes]
+* --rmi all : イメージ削除
+* --volumes : 作成したボリュームを削除
+
+appサービス内でシェル実行
+docker compose exec app bash

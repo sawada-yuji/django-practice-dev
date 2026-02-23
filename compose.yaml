@@ -1,0 +1,31 @@
+services:
+  app:
+    ports:
+      - "8000:8000"
+    volumes:
+      - type: bind
+        source: ./src
+        target: /my-work
+      - type: bind
+        source: ./app
+        target: /my-app
+    build: ./docker/app
+    user: "${UID}:${GID}"
+  db:
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_USER=app
+      - MYSQL_PASSWORD=pass1234
+      - MYSQL_DATABASE=sample
+      - TZ=Asia/Tokyo
+    ports:
+      - "3306:3306"
+    volumes:
+      - type: volume
+        source: db-volume
+        target: /var/lib/mysql
+    image: mariadb:10.11.15
+
+volumes:
+  db-volume:
+
